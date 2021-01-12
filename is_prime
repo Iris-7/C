@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include<math.h>
+int is_prime(int x)
+{
+    int i;
+    for(i=2;i<=sqrt(x);i++)   //优化算法  i<=sqrt(n)
+    {
+    if(x%i==0)
+    return 0;
+    }
+        return 1;
+}
+
+  int main()
+  {
+    int a=7;
+   //scanf("%d\n",&a);
+    if(is_prime(a) ==1)
+    {
+        printf("这个数是素数");
+    }
+    else
+        {printf("这个数不是素数") ;
+        }
+    return 0;
+  }
