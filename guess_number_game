@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+ void menu()
+ {
+     printf("*****************************\n");
+     printf("******1 开始  0 退出 ********\n");
+     printf("*****************************\n");
+ }
+
+void game()
+ {
+     int isecret, iguess;
+     /* initialize random seed: */
+     srand (time(NULL));                  //time() 获得时间戳的随机值-time.h   srand()-stdlib.h
+  /* generate secret number between 1 and 100: */
+     isecret = rand() % 100 + 1;          //rand()-stdlib.h  设定随机值范围0-100
+       
+   do
+    {
+       printf("在1-100内猜测数字:");
+      scanf("%d",&iguess);
+      if(isecret>iguess)
+        printf("猜低了\n");
+      else if(isecret<iguess)
+        printf("猜高了\n");
+      }while(isecret!=iguess);
+        printf("恭喜你，猜对了\n");
+ }
+int main()
+{
+    int input;
+    menu();
+    do
+    {
+    printf("请输入:");
+     scanf("%d",&input);
+     switch(input)
+     {
+         case 1:
+            game();
+            break;
+         case 0:
+             printf("退出程序\n");
+             break;
+         default:
+            printf("输入错误\n");
+            break;
+     }
+     }while(input);
+return 0;
+}
+
