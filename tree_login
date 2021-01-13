@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+    int i=0;
+    char password[20]={0};
+    char key[]="123456";
+    for(i=0;i<3;i++)
+    {
+        printf("Please enter your password:");
+        scanf("%s",password);               //%s后不要加\n,否则光标一直在闪（在coodeblock下），进入不了下一行代码
+        if (strcmp(password,key)==0)
+        {
+        printf("Login successfully !\n");
+        break;
+        }
+    }
+    if(i==3)
+        printf("You have not chance to login !\n");
+    return 0;
+}
+
