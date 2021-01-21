@@ -1,0 +1,37 @@
+#include <stdio.h>
+//int fib(int n)
+//{
+//    if(n<=2)
+//        return 1;
+//    else
+//    return fib(n-1)+fib(n-2);
+//}
+//int main()
+//{
+//      int n;
+//      printf("请输入数字:");
+//      scanf("%d",&n);
+//     printf("该数的斐波那契数列值是:%d",fib(n));
+//      return 0;
+//}
+
+int main()
+{
+      int n,i;
+      int a=1,b=1,c=0;
+      printf("请输入数字:");
+      scanf("%d",&n);
+      if(n>1)
+      {
+           for(i=1;i<=n;i++)
+           {
+               a=b;
+               b=c;
+               c=a+b;
+           }
+      }
+         else
+        c=1;
+     printf("该数的斐波那契数列值是:%d",c);
+      return 0;
+}
