@@ -1,0 +1,20 @@
+#include <stdio.h>
+ int factorial(int n)
+ {
+     int m=1;
+      for(;n!=1;n--)
+      {
+        m*=n;           //先设一变量m=1,另一变量自减，递乘进行求阶乘
+      }
+      return m;
+ }
+
+int main()
+{
+      int num;
+      printf("请输入数字:");
+      scanf("%d",&num);
+      int fa=factorial(num);
+      printf("该数字的阶乘为:%d",fa);
+      return 0;
+}
