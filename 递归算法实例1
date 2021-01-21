@@ -1,0 +1,18 @@
+# include <stdio.h>
+int print(int num)
+{
+    if(num>9)
+    {
+        print(num/10);
+    }
+    printf("%d ",num%10);
+}
+
+int main()
+{
+      unsigned int num;
+      printf("请输入数字：");
+      scanf("%d",&num);
+      print(num);
+      return 0;
+}
