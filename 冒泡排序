@@ -1,0 +1,58 @@
+#include <stdio.h>
+//void bubble(int* arr,int sz)
+//{
+//    //确定冒泡排序的趟数:一共sz-1趟
+//    int i;
+//    for(i=0;i<sz-1;i++)
+//    {
+//    //每一趟冒泡排序
+//        int j;
+//        for(j=0;j<sz-1-i;j++)
+//        {
+//            if(arr[j]>arr[j+1])        //不是arr[i]与arr[j]比较
+//            {
+//               int temp=arr[j];
+//                arr[j]=arr[j+1];
+//                arr[j+1]=temp;
+//            }
+//        }
+//
+//    }
+//}
+
+//优化，当后面比较的数字都是有序的时候，就直接跳出整个循环，省略了后面注意比较的趟数
+void bubble(int* arr,int sz)
+{
+    //确定冒泡排序的趟数:一共sz-1趟
+    int i;
+    for(i=0;i<sz-1;i++)
+    {
+       int flag=1;
+    //每一趟冒泡排序
+        int j;
+        for(j=0;j<sz-1-i;j++)
+        {
+            if(arr[j]>arr[j+1])        //不是arr[i]与arr[j]比较
+            {
+               int temp=arr[j];
+                arr[j]=arr[j+1];
+                arr[j+1]=temp;
+                flag=0;             //标志进行过排序
+            }
+        }
+        if(flag==1)      //没有进入交换排序体中，即一次排序交换都没有进行过，表示数据有序，退出整个循环
+            break;
+    }
+}
+int main()
+{
+    int i;
+    int arr[]={9,7,8,6,5,0,1,2,3,4};
+    int sz=sizeof(arr)/sizeof(arr[0]);
+    bubble(arr,sz);
+    for(i=0;i<sz;i++)
+    {
+       printf("%d",arr[i]);
+}
+return 0;
+}
