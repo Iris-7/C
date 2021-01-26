@@ -1,140 +1,100 @@
 # include "game.h"
-void InitBoard(char board[LINE][COL],int line,int col)
+
+//初始化棋盘
+void InitBoard(char board[LINES][COLS], int line, int col, char sett)
 {
-  int i,j;
- for(i=0;i<line;i++)
- {
-    for(j=0;j<col;j++)
- {
-     board[i][j] = ' ';
- }
-}
+    int i;
+    int j;
+    for(i=0; i<line; i++)
+    {
+        for(j=0; j<col; j++)
+        {
+              board[i][j] = sett;
+        }
+    }
 }
 
-void DisplayBoard(char board[LINE][COL],int line,int col)
+//打印棋盘
+void DisplayBoard (char board[LINES][COLS],int line, int col)
 {
-   int i = 0;
-   for(i = 0; i<line; i++)
-   {
-       //打印一行数据
-       // printf(" %c | %c | %c \n",board[i][0],board[i][1],board[i][2]);
-       //优化：
-       int j;
-       for(j = 0; j < col;  j++)
-       {
-           printf(" %c ",board[i][j]);
-           if(j < col - 1)
-            printf("|");
-   }
-   printf("\n");
-       //打印分割行
-        if(i < line-1)
-          {
-              for (j =0; j < col; j++)
-              {
-                  printf("---");
-                  if(j<col-1)
-                    printf("|");
-              }
-                 printf("\n");
-          }
-   }
-   printf("\n");
+    int i;
+    int j;
+//打印棋盘的列号
+for(i=0; i<=col; i++)
+{
+    printf("%d ",i);
+}
+printf("\n");
+
+    for (i=1; i<=line; i++)
+    {
+        printf("%d ",i);
+        for (j=1; j<=col; j++)
+        {
+            printf("%c ",board[i][j]);
+        }
+        printf("\n");
+    }
 }
 
-void PlayerMove (char board[LINE][COL],int line,int col)
+//布雷
+void SetMine(char mine[LINES][COLS], int line, int col)
 {
-       int x = 0;
-       int y = 0;
-       printf("玩家走\n");
-       //判断坐标合法性
-        while(1)
-        {
-           printf("请输入要下的坐标：");
-        scanf("%d,%d",&x,&y);
-        if (x>= 1 && x<=line && y>=1 && y<=col)
-        {
-            if (board[x-1][y-1] == ' ')
-            {
-                board[x-1][y-1] = '*';
-                break;
-            }
-            else
-                {
-                printf("该坐标已被占用\n");
-                }
-        }
-        else
-        {
-            printf("坐标非法，请重新输入！\n");
-        }
-        }
-}
-
-void ComputerMove (char board[LINE][COL],int line,int col)
-{
-        int x = 0;
-        int y = 0;
-        printf("电脑走\n");
-        while(1)
-        {
-            x = rand() % line;   //用rand()生成的随机数%行，得到0-2范围的数值
-            y= rand() % col;
-            if (board[x][y] == ' ')
-             {
-                board[x][y] = '#';
-                break;
-             }
-        }
-}
-
-//返回1：表示棋盘满了
-//返回0，表示棋盘没满
-int IsFull(char board[LINE][COL], int line, int col)
-{
-    int i = 0;
-     int j = 0;
-     for (i=0; i<line; i++)
+    int count = COUNT;
+     while(count)
      {
-         for(j=0; j<=col; j++)
-         {
-             if (board[i][j] == ' ')
-             {
-                 return 0;            //没满
-             }
-         }
+       int x =rand()%line+1;  //限定随机值的范围是0~line-1 (0~8) ,+1后 范围变成1~9
+       int y =rand()%col+1;   //因为mine[LINES][COLS], 但打印出来的知识[LINE][COL]
+       if(mine[x][y] == '0')
+      {
+        mine[x][y]='1';
+        count --;
+      }
      }
-     return 1;           //满了
 }
 
-char IsWin(char board[LINE][COL],int line,int col)
+int get_mine_count(char mine[LINES][COLS], int x, int y)
 {
-    int i = 0;
-    //横三行：判断每行的三个空格是否相同，是否可连成一根线
-    for(i = 0; i< line; i++)
+     return mine[x-1][y-1]+mine[x-1][y]+mine[x-1][x+1] +
+                 mine[x][y-1]+mine[x][y+1]+
+                 mine[x+1][y-1]+mine[x+1][y]+mine[x+1][y+1] - 8*'0';  //字符型数据-字符型'0' 得整型数据
+}
+//扫雷
+void FindMine (char mine[LINES][COLS], char show[LINES][COLS], int line, int col)
+{
+    int x = 0;
+    int y = 0;
+    int win = 0;
+    while(win<line*col-COUNT)    //可以循环排雷的次数，即不是雷的个数
     {
-        if (board[i][0] == board[i][1] && board[i][1] == board[i][2] && board[i][1] != ' ')
-        {
-            return board[i][1];
-        }
-    }
-        //竖三行：判断每列的三个空格是否相同，是否可连成一根线
-    for(i = 0; i< col; i++)
+        printf("请输入排查雷的坐标：");
+         scanf("%d,%d",&x,&y);
+    //判断坐标合法性
+    if(x>=1 && x<=line && y>=1 && y<=col)
     {
-        if (board[0][i] == board[1][i] && board[1][i] == board[2][i] && board[1][i] != ' ')
+        //1.踩到雷
+        if(mine[x][y] == '1')
         {
-            return board[1][i];
+            printf("很遗憾，你被炸死了！\n\n");
+            DisplayBoard (mine, LINE, COL);
+            break;
         }
+       //2.没踩到雷，显示坐标九宫格内雷的数量
+       else
+       {
+           int count = get_mine_count(mine, x, y);
+           show[x][y] = count+'0';  //整型数据+字符0 得 字符型数据
+           DisplayBoard(show, line, col);
+           win++;
+       }
     }
-         //l两个对角线
-         if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[1][1] != ' ')
-            return board[1][1];
-         if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[1][1] !=' ')
-            return board[1][1];
-         //判断是否平局
-         if (1 ==IsFull (board,LINE,COL))
-         {
-             return 'Q';
-         }
-         return 'C';
+    else    //坐标不合法
+    {
+         printf("坐标不合法，请重新输入!\n");
     }
+    }
+    if (win == line*col - COUNT)
+    {
+        printf("恭喜你，排雷成功！\n");
+    }
+}
