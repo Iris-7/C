@@ -1,0 +1,31 @@
+# include <stdio.h>
+/*第一种-while循环*/
+//void print(int* p,int sz)
+//{
+//     printf("数组内容为：");
+//     while(sz)
+//     {
+//        printf("%d ",*p);
+//        p++;
+//        sz--;
+//     }
+//}
+
+/*第二种-for循环*/
+void print(int* p,int sz)
+{
+     int i=0;
+     printf("数组内容为：");
+     for(i=0; i<sz; i++)
+     {
+         printf("%d ",*(p+i)) ;
+     }
+}
+
+int main()
+{
+    int arr [] ={0,1,2,3,4,5};
+    int sz = sizeof(arr)/sizeof(arr[0]);
+    print(arr,sz);
+    return 0;
+}
