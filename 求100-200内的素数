@@ -1,0 +1,24 @@
+# include <stdio.h>
+# include <math.h>
+
+int is_prime(int x)
+{
+    int i =0;
+    for(i=2; i<=sqrt(x); i++)    //i初始化为2，而不是100
+    {
+        if((x%i) ==0 )
+            return 0;
+     }
+      return 1;
+}
+int main()
+{
+   int i =0;
+   for(i=100; i<=200; i++)
+   {
+       if( is_prime(i) ==1)
+        {printf("%d ",i);     //%d后空格，打印出的数字就会有空格，更美观
+        }
+   }
+    return 0;
+}
