@@ -1,0 +1,36 @@
+# include <stdio.h>
+
+int count_bit_one(int num) //计算二进制数中1的个数
+{
+    int count = 0;
+    while(num)
+    {
+      num = num&(num-1);
+      count++;
+    }
+    return count;
+}
+
+int count_diff_bit(int n,int m)  //计算两二进制数的不同位的个数
+{
+     int temp = n^m;    //得到两者异或的值，其中相同为0，相异为1
+     return count_bit_one(temp);  //调用计算二进制数中1的个数的函数，并作为返回z值返回
+     /*当然，也可直接计算1的个数*/
+//     int count = 0;
+//    while(temp)
+//    {
+//      temp = temp&(temp-1);
+//      count++;
+//    }
+//    return count;
+}
+
+int main()
+{
+   int n=0;
+   int m= 0;
+   scanf("%d%d",&n,&m);
+   int count = count_diff_bit(n,m);
+   printf("不同的位个数为：%d",count);
+   return 0;
+}
