@@ -9,7 +9,7 @@ int main()
         for(j=1;j<=i;j++)
         {
            m=i*j;
-           printf("%d*%d=%d\t",j,i,m);
+           printf("%d*%d=%d\t",j,i,m);  //可以用-3d代替%d\t这的\t的隔开作用
         }
         printf("\n");
     }
