@@ -6,7 +6,7 @@ int main()
     int b=5;
 
     a=a^b;             //a=6
-    b=a^b;            //b=3    b=a^b^b  -> a ->3
+    b=a^b;            //b=3  b=a^b^b  -> a ->3
     a=a^b;
     printf("a=%d,b=%d",a,b);
     return 0;
