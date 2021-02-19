@@ -1,0 +1,57 @@
+#include<stdio.h>
+/*第一种-mine*/
+//void reverse_string1(char *string,int right,int left)
+//{
+//    char temp=0;
+//    if((string+right)-(string+left)>=0)
+//    {
+//          temp=*(string+right);
+//          *(string+right)=*(string+left);
+//         *(string+left)=temp;
+//          right--;
+//          left++;
+//          reverse_string(string,right,left) ;
+//    }
+//}
+
+/*第二种-teacher's*/
+int my_strlen(char *p)
+{
+    int count =0;
+    while(*p!='\0')     //p为地址，*p为内容，不可能是用地址去判断是否到达最后一个结束标志符位置处
+    {
+          count++;
+          p++;
+    }
+    return count;
+}
+
+/*将第一个给中间变量，最后一个给第一个，‘\0’给最后一个。之后实现中间数值的交换。在末尾再将中间变量给第一个*/
+void reverse_string2(char arr[])      
+{
+         char temp = arr[0];
+         int len = my_strlen(arr);
+         arr[0] = arr[len-1] ;
+         arr[len-1] = '\0';
+         if(my_strlen(arr+1)>=2)
+            reverse_string2(arr+1);
+         arr[len -1] = temp;
+}
+
+int main()
+{
+    int i=0;
+    char arr[]="abcdefg";
+   int sz = my_strlen(arr);
+//  reverse_string1(arr,sz,0);
+    reverse_string2(arr);
+//    printf("该数组内容逆序排列后为:");
+//    for(i=0; i<sz;i++)
+//    {
+//        printf("%c",arr[i]);
+//    }
+
+
+    printf("数组内容逆置后为:%s\n",arr);  //%s打印数组
+    return 0;
+}
