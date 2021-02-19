@@ -1,0 +1,23 @@
+# include<stdio.h>
+
+ double Pow(int n,int k)
+ {
+     //1/n * 1/( n^(k-1) )
+     if(k<0)
+        return  (1.0/(Pow(n,-k))) ;
+     else if(k==0)
+        return 1;
+     //n*n^(k-1)
+     else
+        return n*Pow(n,k-1);
+ }
+int main()
+{
+    int n =0;
+    int k=0;
+    printf("输入n,k:");
+    scanf("%d,%d",&n,&k);
+    double ret=Pow(n,k);
+    printf("n的k次方的值为:%lf",ret);  //%lf用于double %f用于float
+     return 0;
+}
